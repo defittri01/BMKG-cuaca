@@ -198,6 +198,9 @@ class BMKGCuaca():
   def collect_data(self, month_start, month_end, tahun, half_month):
     date = self.date(tahun, half_month)
 
+    month_start = int(month_start)
+    month_end = int(month_end)
+
     if half_month == True:
         month_start  = 2*month_start
         month_end = 2*month_end
