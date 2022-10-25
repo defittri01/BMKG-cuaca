@@ -114,7 +114,7 @@ class BMKGCuaca():
     box_sta.send_keys(Keys.DOWN)
     box_sta.send_keys(Keys.RETURN)
   
-  def date(self, tahun, half):
+  def date_bulan(self, tahun, half):
     if isinstance(tahun,int) == True:
       tahun = str(tahun)
       
@@ -196,7 +196,7 @@ class BMKGCuaca():
       return full_month
 
   def collect_data(self, month_start, month_end, tahun, half_month):
-    date = self.date(tahun, half_month)
+    date = self.date_bulan(tahun, half_month)
 
     month_start = int(month_start)
     month_end = int(month_end)
@@ -206,8 +206,8 @@ class BMKGCuaca():
         month_end = 2*month_end
 
     for p in range(month_start-1 ,month_end):
-        date_start = date(tahun) [p][0]
-        date_end = date(tahun) [p][1]
+        date_start = date[p][0]
+        date_end = date[p][1]
 
         print('mengunduh data ', date_start, ' s.d. ', date_end)
 
