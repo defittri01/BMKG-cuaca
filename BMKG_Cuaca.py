@@ -115,6 +115,9 @@ class BMKGCuaca():
     box_sta.send_keys(Keys.RETURN)
   
   def date(self, tahun, half):
+    if isinstance(tahun,int) == True:
+      tahun = str(tahun)
+      
     half_month = [['01-01-'+tahun,'15-01-'+tahun], \
               ['16-01-'+tahun,'31-01-'+tahun], \
               
