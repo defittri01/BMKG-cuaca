@@ -44,10 +44,11 @@ class BMKGCuaca():
     self.display_login_capt()
 
   def display_login_capt(self):
+    now_dir = os.getcwd()
     captcha = self.driver.find_element("xpath", '//*[@id="capimage"]/img')
     captcha_url = captcha.get_attribute('src')
     urllib.request.urlretrieve(captcha_url, 'captcha_img.jpg')
-    captcha_img = cv2.imread('/content/captcha_img.jpg')
+    captcha_img = cv2.imread(now_dir+'/captcha_img.jpg')
     plt.imshow(captcha_img)
 
   def solve_login_capt(self):
@@ -61,7 +62,7 @@ class BMKGCuaca():
     password_box.send_keys(Keys.RETURN)
 
     try:
-      WebDriverWait(BMKG_cuaca.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div/div/h1')))
+      WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div/div/h1')))
       print('Login success')
 
     except:
