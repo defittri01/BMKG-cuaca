@@ -113,6 +113,105 @@ class BMKGCuaca():
     time.sleep(1)
     box_sta.send_keys(Keys.DOWN)
     box_sta.send_keys(Keys.RETURN)
+  
+  def date(self, tahun, half):
+    half_month = [['01-01-'+tahun,'15-01-'+tahun], \
+              ['16-01-'+tahun,'31-01-'+tahun], \
+              
+              ['01-02-'+tahun,'15-02-'+tahun], \
+              ['16-02-'+tahun,'28-02-'+tahun], \
+              
+              ['01-03-'+tahun,'15-03-'+tahun], \
+              ['16-03-'+tahun,'31-03-'+tahun], \
+                              
+              ['01-04-'+tahun,'15-04-'+tahun], \
+              ['16-04-'+tahun,'30-04-'+tahun], \
+
+              ['01-05-'+tahun,'15-05-'+tahun], \
+              ['16-05-'+tahun,'31-05-'+tahun], \
+
+              ['01-06-'+tahun,'15-06-'+tahun], \
+              ['16-06-'+tahun,'30-06-'+tahun], \
+              
+              ['01-07-'+tahun,'15-07-'+tahun], \
+              ['16-07-'+tahun,'31-07-'+tahun], \
+                              
+              ['01-08-'+tahun,'15-08-'+tahun], \
+              ['16-08-'+tahun,'31-08-'+tahun], \
+
+              ['01-09-'+tahun,'15-09-'+tahun], \
+              ['16-09-'+tahun,'30-09-'+tahun], \
+              
+              ['01-10-'+tahun,'15-10-'+tahun], \
+              ['16-10-'+tahun,'31-10-'+tahun], \
+                              
+              ['01-11-'+tahun,'15-11-'+tahun], \
+              ['16-11-'+tahun,'30-11-'+tahun], \
+
+              ['01-12-'+tahun,'15-12-'+tahun], \
+              ['16-12-'+tahun,'31-12-'+tahun], \
+                  
+              ]
+
+    if divmod(int(tahun), 4)[1] == 0:
+      half_month[3][1] = '29-02-' + tahun
+
+
+    full_month = [['01-01-'+tahun, '31-01-'+tahun], \
+                
+                ['01-02-'+tahun,'28-02-'+tahun], \
+                
+                ['01-03-'+tahun,'31-03-'+tahun], \
+                                
+                ['01-04-'+tahun,'30-04-'+tahun], \
+
+                ['01-05-'+tahun,'31-05-'+tahun], \
+
+                ['01-06-'+tahun,'30-06-'+tahun], \
+                
+                ['01-07-'+tahun,'31-07-'+tahun], \
+                                
+                ['01-08-'+tahun,'31-08-'+tahun], \
+
+                ['01-09-'+tahun,'30-09-'+tahun], \
+                
+                ['01-10-'+tahun,'31-10-'+tahun], \
+                                
+                ['01-11-'+tahun,'30-11-'+tahun], \
+
+                ['01-12-'+tahun,'31-12-'+tahun], \
+                    
+                ]
+
+    if divmod(int(tahun), 4)[1] == 0:
+      full_month[1][1] = '29-02-' + tahun
+
+
+    if half == True:
+      return half_month
+    else:
+      return full_month
+
+  def collect_data(self, month_start, month_end, tahun, half_month):
+    date = self.date(tahun, half_month)
+
+    if half_month == True:
+        month_start  = 2*month_start
+        month_end = 2*month_end
+
+    for p in range(month_start-1 ,month_end):
+        date_start = date(tahun) [p][0]
+        date_end = date(tahun) [p][1]
+
+        print('mengunduh data ', date_start, ' s.d. ', date_end)
+
+        self.from_to_date(date_start, date_end)
+        time.sleep(4)
+        self.click_star()
+        time.sleep(2)
+        self.click_download()
+        time.sleep(2)
+        self.rename_file(tahun, date_start)
 
   def from_to_date(self, date_start, date_end):
     box_from = self.driver.find_element("xpath", '//*[@id="from"]')
@@ -150,7 +249,7 @@ class BMKGCuaca():
 
   def rename_file(self, tahun, new_name):
     now_dir = os.getcwd()
-    Path(now_dir+tahun).mkdir(parents=True, exist_ok=True)
+    Path(now_dir + '/' +tahun).mkdir(parents=True, exist_ok=True)
 
     while True:
       files_name = sorted(glob.glob(now_dir + '/*.xlsx'), key=os.path.getmtime,reverse=True)
