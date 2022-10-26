@@ -199,14 +199,14 @@ class BMKGCuaca():
     else:
       return full_month
 
-  def collect_data(self, month_start, month_end, tahun, half_month):
+  def collect_data(self, month_start, month_end, tahun, half_month, delay):
     date = self.date_bulan(tahun, half_month)
 
     month_start = int(month_start)
     month_end = int(month_end)
 
     if half_month == True:
-        month_start  = 2*month_start
+        month_start  = 2*month_start-1
         month_end = 2*month_end
 
     for p in range(month_start-1 ,month_end):
@@ -216,11 +216,11 @@ class BMKGCuaca():
         print('mengunduh data ', date_start, ' s.d. ', date_end)
 
         self.from_to_date(date_start, date_end)
-        time.sleep(4)
+        time.sleep(delay)
         self.click_star()
-        time.sleep(2)
+        time.sleep(delay-2)
         self.click_download()
-        time.sleep(2)
+        time.sleep(delay-3)
         self.rename_file(tahun, date_start)
 
   def from_to_date(self, date_start, date_end):
