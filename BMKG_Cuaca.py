@@ -284,9 +284,9 @@ class BMKGCuaca():
           
           break
 
-  def download(self):
-    dir_to_zip      = input('dir_to_zip: ')
-    output_filename = input('output_filename: ')
+  def download_data(self, tahun):
+    dir_to_zip      = tahun
+    output_filename = tahun + '.zip'
 
     os.system( "zip -r {} {}".format( output_filename , dir_to_zip ) )
 
