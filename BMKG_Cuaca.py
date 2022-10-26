@@ -12,6 +12,7 @@ import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
 from pathlib import Path
+from getpass import getpass
 
 class BMKGCuaca():
   def __init__(self):
@@ -32,7 +33,10 @@ class BMKGCuaca():
     except:
       print('failed to open chrome browser')
 
-  def login(self, email, password):  
+  def login(self):  
+    email = input('E-mail: ')
+    password = getpass('Password: ')
+    
     email_box = self.driver.find_element("xpath", '/html/body/div[2]/div/div/div/div[1]/div[1]/div/form[1]/div[1]/div/input')
     email_box.clear()
     email_box.send_keys(email)
