@@ -13,6 +13,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 from pathlib import Path
 from getpass import getpass
+from datetime import datetime
 
 class BMKGCuaca():
   def __init__(self):
@@ -200,6 +201,8 @@ class BMKGCuaca():
       return full_month
 
   def collect_data(self, month_start, month_end, tahun, half_month, delay):
+    start = datetime.now()
+    
     date = self.date_bulan(tahun, half_month)
 
     month_start = int(month_start)
@@ -222,6 +225,11 @@ class BMKGCuaca():
         self.click_download()
         time.sleep(delay-3)
         self.rename_file(tahun, date_start)
+
+    end = datetime.now() 
+    elapsed_time = end-start
+    elapsed_time = elapsed_time.total_seconds() / 60 
+    print(str(elapsed_time) + ' menit')
 
   def from_to_date(self, date_start, date_end):
     box_from = self.driver.find_element("xpath", '//*[@id="from"]')
