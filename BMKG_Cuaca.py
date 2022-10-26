@@ -126,8 +126,8 @@ class BMKGCuaca():
     half_month = [['01-01-'+tahun,'15-01-'+tahun], \
               ['16-01-'+tahun,'31-01-'+tahun], \
               
-              ['01-02-'+tahun,'15-02-'+tahun], \
-              ['16-02-'+tahun,'28-02-'+tahun], \
+              ['01-02-'+tahun,'14-02-'+tahun], \
+              ['15-02-'+tahun,'28-02-'+tahun], \
               
               ['01-03-'+tahun,'15-03-'+tahun], \
               ['16-03-'+tahun,'31-03-'+tahun], \
